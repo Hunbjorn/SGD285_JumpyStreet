@@ -49,7 +49,7 @@ public class AlternativeVehicle : MonoBehaviour
         else if (other.tag == "Player")
         {
             print("Hit player");
-            Destroy(other);
+            other.transform.position = new Vector3(0f, -5.469f, -7.237f);
         }
 
         else
