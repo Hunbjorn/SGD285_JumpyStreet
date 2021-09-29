@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 5623088728991608715}
   - component: {fileID: 5623088728995962859}
   - component: {fileID: -5847228142351672844}
-  - component: {fileID: -4872737455409300113}
+  - component: {fileID: -5495431333717468610}
   m_Layer: 0
   m_Name: Boat_4
-  m_TagString: Vehicle
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-4872737455409300113
+--- !u!114 &-5495431333717468610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,10 +124,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5623088728993870155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba355d6f7ff4ff42ba2be6971144b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a4fbe3ecfe1ba234aa605fa065e93779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   thrust: 30
-  speed: 0.5
+  speed: 2
   originalPos: {x: 0, y: 0, z: 0}

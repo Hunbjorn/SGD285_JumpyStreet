@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 1910432238871434}
   - component: {fileID: 1910432237773130}
   - component: {fileID: 1910432233476394}
-  - component: {fileID: -6655797658673184093}
   - component: {fileID: -5878577566596716623}
+  - component: {fileID: 3735744150167999281}
   m_Layer: 0
   m_Name: Boat_1
-  m_TagString: Vehicle
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,21 +99,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2702684759560004025, guid: 060420b26d3644040b9d1af1c5ba3c95, type: 3}
---- !u!114 &-6655797658673184093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910432235585418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db87944388c4ae43bd6e4fd12036427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.25
-  originalPos: {x: 0, y: 0, z: 0}
-  thrust: 10
 --- !u!54 &-5878577566596716623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,3 +115,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3735744150167999281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910432235585418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba0bd7866d34c74a88ee0ac044e0ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

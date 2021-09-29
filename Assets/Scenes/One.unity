@@ -870,7 +870,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671882834}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -4480,18 +4480,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5944594417561062532, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
         type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6c9a927ec10d14ce9be8d0562e39e1c2, type: 2}
-    - target: {fileID: 5944594417561062532, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
-        type: 3}
       propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5944594417561062532, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5992241990101480306, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
         type: 3}
@@ -4500,18 +4495,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5993569668573044844, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
         type: 3}
-      propertyPath: allowJump
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5993569668573044844, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
-        type: 3}
       propertyPath: moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5993569668573044844, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
-        type: 3}
-      propertyPath: turnSpeed
-      value: 75
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5998166786005072534, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3,
         type: 3}

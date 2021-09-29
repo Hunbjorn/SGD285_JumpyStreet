@@ -38,13 +38,13 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerategameTiles()
     {
-        for (int i = 0; i < 21; i++)
+        for (int i = 0; i < gameTiles.Length; i++)
         {
             // Get the Mesh Renderer Component from this gameObject
             MeshRenderer meshRenderer = gameTiles[i].GetComponent<MeshRenderer>();
             Material oldMaterial = meshRenderer.material;
             Debug.Log("Applied Material: " + oldMaterial.name);
-            int random = Random.Range(0, 6);
+            int random = Random.Range(0, 7);
             switch (random)
             {
                 case 0:
@@ -88,12 +88,15 @@ public class MapGenerator : MonoBehaviour
                     break;
 
                 case 4:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[4];
-                    gameTiles[i].name = "YellowTile";
-                    yellowTileCount++;
-                    // Make the train
-                    Instantiate(train, gameTiles[i].transform, false);
+                    // Set the new material on the GameObject
+                    meshRenderer.material = materials[6];
+                    gameTiles[i].name = "PurpleTile";
+                    purpleTileCount++;
+                    // Make the boats
+                    int s = Random.Range(0, 2);
+                    Instantiate(boatsleft[s], gameTiles[i].transform, false);
+                    int d = Random.Range(0, 1);
+                    Instantiate(boatsright[d], gameTiles[i].transform, false);
                     break;
 
                 case 5:
@@ -108,15 +111,12 @@ public class MapGenerator : MonoBehaviour
                     break;
 
                 case 6:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[6];
-                    gameTiles[i].name = "PurpleTile";
-                    purpleTileCount++;
-                    // Make the boats
-                    int s = Random.Range(0, 2);
-                    Instantiate(boatsleft[s], gameTiles[i].transform, false);
-                    int d = Random.Range(0, 1);
-                    Instantiate(boatsright[d], gameTiles[i].transform, false);
+                    // Set the new material on the GameObject
+                    meshRenderer.material = materials[4];
+                    gameTiles[i].name = "YellowTile";
+                    yellowTileCount++;
+                    // Make the train
+                    Instantiate(train, gameTiles[i].transform, false);
                     break;
 
                 default:
