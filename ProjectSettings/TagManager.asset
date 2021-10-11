@@ -19,6 +19,7 @@ TagManager:
   - RightWall
   - Goal
   - Boat
+  - Prize
   layers:
   - Default
   - TransparentFX

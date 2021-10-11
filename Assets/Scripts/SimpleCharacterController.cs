@@ -14,7 +14,7 @@ public class SimpleCharacterController : MonoBehaviour
     [Tooltip("Whether the character can jump")]
     public bool allowJump = false;
     [Tooltip("Upward speed to apply when jumping in meters/second")]
-    public float jumpSpeed = 4f;
+    public float jumpSpeed = 1f;
 
     public bool IsGrounded { get; private set; }
     public float ForwardInput { get; set; }
@@ -78,7 +78,7 @@ public class SimpleCharacterController : MonoBehaviour
         // Jump
         if (JumpInput && allowJump && IsGrounded)
         {
-            rigidbody.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+            rigidbody.AddForce(transform.forward * jumpSpeed, ForceMode.VelocityChange);
         }
     }
 }

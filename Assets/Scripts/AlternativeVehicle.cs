@@ -48,13 +48,13 @@ public class AlternativeVehicle : MonoBehaviour
         // Otherwise, it's hit the player, which kills the player
         else if (other.tag == "Player")
         {
-            print("Hit player");
+            print("Vehicle hit player");
             other.transform.position = new Vector3(0f, -5.469f, -7.237f);
         }
 
         else
         {
-            print("Hit something else");
+            // print("Hit something else");
         }
 
     }

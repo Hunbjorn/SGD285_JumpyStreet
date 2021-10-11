@@ -13,9 +13,22 @@ public class GameController : MonoBehaviour
     public GameObject[] carsright;
     public GameObject[] boatsleft;
     public GameObject[] boatsright;
+    public GameObject prize;
+    public int numberOfPrizes;
+    public float min, max;
     public GameObject miscleft;
     public GameObject miscright;
     public GameObject train;
+
+    public GameObject prefab;
+    public Terrain terrain;
+    public float yOffset = 0.5f;
+
+    private float terrainWidth;
+    private float terrainLength;
+
+    private float xTerrainPos;
+    private float zTerrainPos;
 
     public Text scoreText;
     public Text highScoreText;
@@ -24,15 +37,58 @@ public class GameController : MonoBehaviour
     void Start()
     {
         StartCoroutine(DelayedSpawn());
+
+        PlacePrizes();
+
+        //Get terrain size
+        terrainWidth = terrain.terrainData.size.x;
+        terrainLength = terrain.terrainData.size.z;
+
+        //Get terrain position
+        xTerrainPos = terrain.transform.position.x;
+        zTerrainPos = terrain.transform.position.z;
+
+        generateObjectOnTerrain();
     }
 
     void Update() 
     {
     }
 
+    void PlacePrizes() 
+    {
+    for (int i = 0; i < numberOfPrizes; i++) 
+        {
+            Instantiate(prize, GeneratePosition(), Quaternion.identity);
+        }
+
+    Vector3 GeneratePosition()
+    {
+        float x, y, z;
+        x = UnityEngine.Random.Range(-4f, 4f);
+        y = -5.46f;
+        z = UnityEngine.Random.Range(-4f, 4f);
+        return new Vector3(x,y,z);
+    }
+    }
+
+    void generateObjectOnTerrain()
+    {
+        //Generate random x,z,y position on the terrain
+        float randX = UnityEngine.Random.Range(xTerrainPos, xTerrainPos + terrainWidth);
+        float randZ = UnityEngine.Random.Range(zTerrainPos, zTerrainPos + terrainLength);
+        float yVal = Terrain.activeTerrain.SampleHeight(new Vector3(randX, 0, randZ));
+
+        //Apply Offset if needed
+        yVal = yVal + yOffset;
+
+        //Generate the Prefab on the generated position
+        GameObject objInstance = (GameObject)Instantiate(prefab, new Vector3(randX, yVal, randZ), Quaternion.identity);
+    }
+
     public void VehicleControl()
     {
-        for (int ti = 0; ti < 21; ti++)
+        for (int ti = 0; ti < gameTiles.Length; ti++)
         {
             if (gameTiles[ti].name == "WhiteTile")
             {
