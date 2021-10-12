@@ -97,11 +97,11 @@ Rigidbody:
   m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!114 &-5495431333717468610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,9 +115,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -5847228142351672844}
+  player: {fileID: 0}
+  character: {fileID: 5417302878338202196, guid: 4dd3230dc38e4fd4bb073cb1b9c42a96,
+    type: 3}
+  oldParent: {fileID: 5417302878338202197, guid: 4dd3230dc38e4fd4bb073cb1b9c42a96,
+    type: 3}
   thrust: 30
-  speed: 2
+  speed: 1
   originalPos: {x: 0, y: 0, z: 0}
+  jumpSpeed: 2
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!65 &-3251065186028368072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -138,7 +145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5623088728993870155}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64d96ef78ca241144bec92825ef6c809, type: 3}
   m_Name: 

@@ -40,6 +40,7 @@ class AudioController : MonoBehaviour
     public AudioClip leap;
     public AudioClip squish;
     public AudioClip splash;
+    public AudioClip kaChing;
     public AudioClip home;
     public AudioClip endOfRound;
 
@@ -56,6 +57,11 @@ class AudioController : MonoBehaviour
     public void PlayDrown()
     {
         AudioSource.PlayOneShot(splash);
+    }
+
+    public void PlayCollect()
+    {
+        AudioSource.PlayOneShot(kaChing);
     }
 
     public void PlayHome()

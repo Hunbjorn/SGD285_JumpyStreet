@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleCharacterController : MonoBehaviour
 {
+    private int score;
+    private int highScore;
+    public Text scoreText;
+    public Text highScoreText;
+    public GameObject prize;
+    public MeshRenderer coin;
+
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
     public float slopeLimit = 45f;
     [Tooltip("Move speed in meters/second")]
     public float moveSpeed = 2f;
     [Tooltip("Turn speed in degrees/second, left (+) or right (-)")]
-    public float turnSpeed = 300;
+    public float turnSpeed = 300f;
     [Tooltip("Whether the character can jump")]
     public bool allowJump = false;
     [Tooltip("Upward speed to apply when jumping in meters/second")]
@@ -21,19 +29,33 @@ public class SimpleCharacterController : MonoBehaviour
     public float TurnInput { get; set; }
     public bool JumpInput { get; set; }
 
-    new private Rigidbody rigidbody;
-    private CapsuleCollider capsuleCollider;
+    public float jumpForce = 4f;
+    public float jumpAmount = 2f;
 
-    private void Awake()
+    new private Rigidbody rb;
+    private CapsuleCollider capsuleCollider;
+    private Vector3 originalPos;
+
+    float velocity;
+
+    private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        originalPos = this.transform.position;
+    }
+
+    void Update()
+    {
+        CheckGrounded();
+        Move();
+        Jump();
     }
 
     private void FixedUpdate()
     {
-        CheckGrounded();
-        ProcessActions();
+        //CheckGrounded();
+        Turn();
     }
 
     // Checks whether the character is on the ground and updates <see cref="IsGrounded"/>
@@ -45,23 +67,25 @@ public class SimpleCharacterController : MonoBehaviour
         Vector3 capsuleBottom = transform.TransformPoint(capsuleCollider.center - Vector3.up * capsuleHeight / 2f);
         float radius = transform.TransformVector(capsuleCollider.radius, 0f, 0f).magnitude;
 
-        Ray ray = new Ray(capsuleBottom + transform.up * .01f, -transform.up);
+        Ray ray = new Ray(capsuleBottom + transform.up * .016f, -transform.up);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, radius * 5f))
         {
             float normalAngle = Vector3.Angle(hit.normal, transform.up);
             if (normalAngle < slopeLimit)
             {
-                float maxDist = radius / Mathf.Cos(Mathf.Deg2Rad * normalAngle) - radius + .02f;
-                if (hit.distance < maxDist)
+                float maxDist = radius / Mathf.Cos(Mathf.Deg2Rad * normalAngle) - radius + .016f;
+                if (hit.distance < maxDist) 
+                {
                     IsGrounded = true;
+                }
             }
         }
     }
 
     // Processes input actions and converts them into movement
 
-    private void ProcessActions()
+    void Turn()
     {
         // Turning
         if (TurnInput != 0f)
@@ -69,16 +93,62 @@ public class SimpleCharacterController : MonoBehaviour
             float angle = Mathf.Clamp(TurnInput, -1f, 1f) * turnSpeed;
             transform.Rotate(Vector3.up, Time.fixedDeltaTime * angle);
         }
+    }
 
+    void Move()
+    {
         // Movement
         Vector3 move = transform.forward * Mathf.Clamp(ForwardInput, -1f, 1f) *
-            moveSpeed * Time.fixedDeltaTime;
-        rigidbody.MovePosition(transform.position + move);
+        moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(transform.position + move);
+    }
 
+    void Jump() 
+    {
         // Jump
         if (JumpInput && allowJump && IsGrounded)
         {
-            rigidbody.AddForce(transform.forward * jumpSpeed, ForceMode.VelocityChange);
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            }
+
+            //velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
+            //velocity += gravity * gravityScale * Time.deltaTime;
+            //if (Input.GetKeyDown(KeyCode.J))
+            //{
+            //    velocity = jumpForce;
+            //}
+
+            //transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
+
+
+            //rigidbody.AddForce(transform.forward * jumpSpeed, ForceMode.VelocityChange);
+            //float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
+            //rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
+        }
+    }
+
+    // Upon collision with another GameObject
+    private void OnTriggerEnter(Collider other)
+    {
+        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (other.tag == "wall")
+        {
+            transform.position = originalPos;
+        }
+
+        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (other.tag == "Prize")
+        {
+            other.enabled = false;
+            score++;
+            scoreText.text = score.ToString();
+            if(highScore < score) 
+            {
+                highScore = score;
+            }
+            Destroy(other.GetComponent<Collider>());
         }
     }
 }

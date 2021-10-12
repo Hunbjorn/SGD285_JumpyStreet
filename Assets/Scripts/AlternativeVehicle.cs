@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AlternativeVehicle : MonoBehaviour
 {
+    public Rigidbody rb;
     public float speed = 2f;
     public Vector3 originalPos;
 

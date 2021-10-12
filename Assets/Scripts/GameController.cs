@@ -30,8 +30,6 @@ public class GameController : MonoBehaviour
     private float xTerrainPos;
     private float zTerrainPos;
 
-    public Text scoreText;
-    public Text highScoreText;
     public GameObject[] gameTiles;
 
     void Start()
@@ -57,19 +55,19 @@ public class GameController : MonoBehaviour
 
     void PlacePrizes() 
     {
-    for (int i = 0; i < numberOfPrizes; i++) 
+        for (int i = 0; i < numberOfPrizes; i++)
         {
             Instantiate(prize, GeneratePosition(), Quaternion.identity);
         }
 
-    Vector3 GeneratePosition()
-    {
-        float x, y, z;
-        x = UnityEngine.Random.Range(-4f, 4f);
-        y = -5.46f;
-        z = UnityEngine.Random.Range(-4f, 4f);
-        return new Vector3(x,y,z);
-    }
+        Vector3 GeneratePosition()
+        {
+            float x, y, z;
+            x = UnityEngine.Random.Range(-4f, 4f);
+            y = -5.46f;
+            z = UnityEngine.Random.Range(-6f, 6f);
+            return new Vector3(x,y,z);
+        }
     }
 
     void generateObjectOnTerrain()
