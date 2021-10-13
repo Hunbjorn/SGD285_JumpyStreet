@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SimpleCharacterController : MonoBehaviour
 {
@@ -152,5 +153,11 @@ public class SimpleCharacterController : MonoBehaviour
             Destroy(other.GetComponent<MeshRenderer>());
 
         }
+
+        if (other.tag == "Goal") 
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
     }
 }

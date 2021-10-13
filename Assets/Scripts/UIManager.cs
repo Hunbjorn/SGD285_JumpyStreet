@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     // Button Functions
     public void OnStart()
     {
-        SceneManager.LoadScene("SwapScene");
+        SceneManager.LoadScene("One");
     }
 
     public void OnHelp()
