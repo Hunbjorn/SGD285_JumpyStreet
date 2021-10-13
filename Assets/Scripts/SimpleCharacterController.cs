@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SimpleCharacterController : MonoBehaviour
 {
+    private AudioSource audioSource;
     private int score;
     private int highScore;
     public Text scoreText;
@@ -142,7 +143,7 @@ public class SimpleCharacterController : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "Prize")
         {
-//            other.enabled = false;
+            other.GetComponent<AudioSource>().Play();
             score++;
             scoreText.text = score.ToString();
             if(highScore < score) 
