@@ -141,7 +141,7 @@ public class SimpleCharacterController : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "Prize")
         {
-            other.enabled = false;
+//            other.enabled = false;
             score++;
             scoreText.text = score.ToString();
             if(highScore < score) 
@@ -149,6 +149,8 @@ public class SimpleCharacterController : MonoBehaviour
                 highScore = score;
             }
             Destroy(other.GetComponent<Collider>());
+            Destroy(other.GetComponent<MeshRenderer>());
+
         }
     }
 }
