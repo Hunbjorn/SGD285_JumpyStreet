@@ -20,6 +20,8 @@ TagManager:
   - Goal
   - Boat
   - Prize
+  - Enemy
+  - TutorialManager
   layers:
   - Default
   - TransparentFX
