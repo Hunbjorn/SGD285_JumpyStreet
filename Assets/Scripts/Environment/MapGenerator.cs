@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject miscright;
     public GameObject train;
     public Transform[] spawnPoints;
+    private Collider collider;
 
 
     public GameObject vehicle;
@@ -68,8 +69,11 @@ public class MapGenerator : MonoBehaviour
                 // Set the new material on the GameObject
                     meshRenderer.material = materials[2];
                     gameTiles[i].name = "BlueTile";
+                    gameTiles[i].tag = "Water";
                     blueTileCount++;
                     // Make the boats
+                    collider = gameTiles[i].GetComponent<Collider>();
+                    collider.GetComponent<Collider>().isTrigger = true;
                     int l = Random.Range(0, 2);
                     Instantiate(boatsleft[l], gameTiles[i].transform, false);
                     int r = Random.Range(0, 1);
@@ -91,8 +95,11 @@ public class MapGenerator : MonoBehaviour
                     // Set the new material on the GameObject
                     meshRenderer.material = materials[6];
                     gameTiles[i].name = "PurpleTile";
+                    gameTiles[i].tag = "Water";
                     purpleTileCount++;
                     // Make the boats
+                    collider = gameTiles[i].GetComponent<Collider>();
+                    collider.GetComponent<Collider>().isTrigger = true;
                     int s = Random.Range(0, 2);
                     Instantiate(boatsleft[s], gameTiles[i].transform, false);
                     int d = Random.Range(0, 1);

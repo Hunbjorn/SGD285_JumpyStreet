@@ -26,6 +26,8 @@ public class SimpleCharacterController : MonoBehaviour
     [Tooltip("Upward speed to apply when jumping in meters/second")]
     public float jumpSpeed = 1f;
 
+    public bool onBoat = false;
+
     public bool IsGrounded { get; private set; }
     public float ForwardInput { get; set; }
     public float TurnInput { get; set; }
@@ -45,6 +47,7 @@ public class SimpleCharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalPos = this.transform.position;
+
     }
 
     void Update()
@@ -140,7 +143,20 @@ public class SimpleCharacterController : MonoBehaviour
             transform.position = originalPos;
         }
 
-        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (other.tag == "Boat")
+        {
+            onBoat = true;
+        }
+
+        if (other.tag == "Water")
+        {
+            if(onBoat == false) 
+            {
+                transform.position = originalPos;
+            }
+        }
+
+
         if (other.tag == "Prize")
         {
             other.GetComponent<AudioSource>().Play();
@@ -160,5 +176,14 @@ public class SimpleCharacterController : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (other.tag == "Boat")
+        {
+            onBoat = false;
+        }
     }
 }

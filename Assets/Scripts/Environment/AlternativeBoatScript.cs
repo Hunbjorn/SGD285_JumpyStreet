@@ -26,8 +26,8 @@ public class AlternativeBoatScript : MonoBehaviour
 
     void Start()
     {
-        originalPos = this.transform.position;
-        gameObject.SetActive(true);
+       originalPos = this.transform.position;
+       gameObject.SetActive(true);
     }
 
     //Moves this GameObject 2 units a second in the forward direction
