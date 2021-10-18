@@ -21,10 +21,19 @@ public class UIManager : MonoBehaviour
     // Game Objects
     [Header("Game Objects")]
     public GameObject helpPanel;
+    public GameObject titlePanel;
 
     void Start()
     {
         helpPanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        if(Input.anyKey)
+        {
+            titlePanel.SetActive(false);
+        }
     }
 
     //////////////////////////////////////////////////
