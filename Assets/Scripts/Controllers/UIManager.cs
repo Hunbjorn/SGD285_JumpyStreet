@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource mySFX;
+    public AudioSource titleBGM;
     public AudioClip hoverSFX;
     public AudioClip selectSFX;
 
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
         if(Input.anyKey)
         {
             titlePanel.SetActive(false);
+            titleBGM.Stop();
         }
     }
 
