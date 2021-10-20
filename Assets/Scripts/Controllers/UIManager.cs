@@ -23,9 +23,6 @@ public class UIManager : MonoBehaviour
     [Header("Game Objects")]
     public GameObject helpPanel;
     public GameObject titlePanel;
-    public GameObject pausePanel;
-
-    private bool isPaused = false;
 
     void Start()
     {
@@ -39,9 +36,6 @@ public class UIManager : MonoBehaviour
             titlePanel.SetActive(false);
             titleBGM.Stop();
         }
-
-        //Pause();
-        //Resume();
     }
 
     //////////////////////////////////////////////////
@@ -59,29 +53,6 @@ public class UIManager : MonoBehaviour
 
     //////////////////////////////////////////////////
 
-    // Pause Menu
-    /*void Pause()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape) && isPaused == false)
-        {
-            isPaused = true;
-            pausePanel.SetActive(true);
-            Time.timeScale = 0;
-        }
-    }
-
-    void Resume()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && isPaused == true)
-        {
-            isPaused = false;
-            pausePanel.SetActive(false);
-            Time.timeScale = 1;
-        }
-    }*/
-
-    //////////////////////////////////////////////////
-
     // Button Functions
     public void OnStart()
     {
@@ -96,11 +67,6 @@ public class UIManager : MonoBehaviour
     public void OnBack()
     {
         helpPanel.SetActive(false);
-    }
-
-    public void onTutorial()
-    {
-        SceneManager.LoadScene("Tutorial");
     }
 
     public void OnQuit()
