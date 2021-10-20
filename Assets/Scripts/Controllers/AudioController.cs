@@ -45,17 +45,16 @@ class AudioController : MonoBehaviour
     public AudioClip home;
     public AudioClip endOfRound;
 
-    private int index;
+    private int i;
 
     void Start()
     {
-  //      PlaySong();
+        AudioSource.PlayOneShot(RandomClip());
     }
 
-    public void PlaySong()
+    public AudioClip RandomClip() 
     {
-        index = Random.Range(0, clips.Length);
-        AudioSource.Play[index];
+        return clips[UnityEngine.Random.Range(0, clips.Length)];
     }
 
     public void PlayLeap()
