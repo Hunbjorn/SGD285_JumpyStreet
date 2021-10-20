@@ -37,12 +37,26 @@ class AudioController : MonoBehaviour
         }
     }
 
+    public AudioClip[] clips;
     public AudioClip leap;
     public AudioClip squish;
     public AudioClip splash;
     public AudioClip kaChing;
     public AudioClip home;
     public AudioClip endOfRound;
+
+    private int index;
+
+    void Start()
+    {
+  //      PlaySong();
+    }
+
+    public void PlaySong()
+    {
+        index = Random.Range(0, clips.Length);
+        AudioSource.Play[index];
+    }
 
     public void PlayLeap()
     {
