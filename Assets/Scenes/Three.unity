@@ -1907,7 +1907,7 @@ MonoBehaviour:
     type: 3}
   train: {fileID: 7145055079628345314, guid: 825fa18a72a60a94c826fb76f103f6b8, type: 3}
   prefab: {fileID: 919132149155446097, guid: 831b92064ff6fe5409ac8985cd2aaa1d, type: 3}
-  terrain: {fileID: 0}
+  terrain: {fileID: 1752972941}
   yOffset: 0.5
   gameTiles:
   - {fileID: 3037849768596595929}
@@ -1969,10 +1969,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -9645,7 +9645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752972939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -499, y: -5.64, z: -497.4}
+  m_LocalPosition: {x: -53, y: -5.64, z: -47.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
