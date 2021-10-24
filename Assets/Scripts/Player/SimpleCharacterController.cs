@@ -149,7 +149,7 @@ public class SimpleCharacterController : MonoBehaviour
         // Jump
         if (JumpInput && allowJump && IsGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 GetComponent<AudioSource>().Play();
                 rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
