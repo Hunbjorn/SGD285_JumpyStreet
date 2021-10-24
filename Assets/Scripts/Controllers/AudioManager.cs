@@ -1,12 +1,4 @@
-﻿//////////////////////////////////////////////////////
-// Assignment/Lab/Project: SGD212-MajorProject3
-//Name: Julian Davis
-//Section: 2020SP.SGD.212.4142
-//Instructor: George Cox
-// Date: 04/01/2020
-//////////////////////////////////////////////////////
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,58 +71,40 @@ public class AudioManager : MonoBehaviour
 	//OnGUI controls for players
 	void OnGUI()
 	{
-		if (GUI.Button(new Rect(20, 20, 50, 50), playTexture))
+		if (GUI.Button(new Rect(20, 50, 50, 50), playTexture))
 		{
 			PlayList();
             gameObject.GetComponent<AudioSource>().mute = false;
         }
 
-        if(GUI.Button(new Rect(70, 20, 50, 50), muteTexture))
+        if(GUI.Button(new Rect(70, 50, 50, 50), muteTexture))
         {
             gameObject.GetComponent<AudioSource>().mute = true;
         }
 
-		if (GUI.Button(new Rect(125, 20, 50, 50), nextTexture))
+		if (GUI.Button(new Rect(125, 50, 50, 50), nextTexture))
 		{
 			NextTitle();
 			Debug.Log(currentClip);
 		}
 
-		if (GUI.Button(new Rect(175, 20, 50, 50), lastTexture))
+		if (GUI.Button(new Rect(175, 50, 50, 50), lastTexture))
 		{
 			LastTitle();
 			Debug.Log(currentClip);
 		}
 
-        /*/
-
-    if (GUI.Button(new Rect(200, 10, 60, 20), "(Un)Mute"))
-    {
-        if (gameObject.GetComponent<AudioSource>().mute == false)
-			{
-				gameObject.GetComponent<AudioSource>().mute = true;
-			}
-			else
-			{
-				gameObject.GetComponent<AudioSource>().mute = false;
-			}
-
-			bool isMuted = gameObject.GetComponent<AudioSource>().mute;
-			gameObject.GetComponent<AudioSource>().mute = !isMuted;
-		}
-			/**/
-
-        if (GUI.Button(new Rect(225, 20, 50, 50), volUpTexture))
+        if (GUI.Button(new Rect(225, 50, 50, 50), volUpTexture))
 		{
 			RaiseVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(275, 20, 50, 50), volDnTexture))
+		if (GUI.Button(new Rect(275, 50, 50, 50), volDnTexture))
 		{
 			LowerVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(330, 20, 50, 50), exitTexture))
+		if (GUI.Button(new Rect(330, 50, 50, 50), exitTexture))
 		{
 			Application.Quit();
 		}
@@ -141,6 +115,7 @@ public class AudioManager : MonoBehaviour
 	{
 		source = GetComponent<AudioSource>();
 		timeToReset = 0f;
+		ResumeList();
 	}
 
 	#region METHODS

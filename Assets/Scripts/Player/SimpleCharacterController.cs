@@ -7,12 +7,15 @@ using UnityEngine.SceneManagement;
 public class SimpleCharacterController : MonoBehaviour
 {
     private AudioSource audioSource;
-    private int score;
-    private int highScore;
     public Text scoreText;
     public Text highScoreText;
     public GameObject prize;
     public MeshRenderer coin;
+    public GameObject player;
+    public GameObject character;
+    private bool godModeOn;
+    public static int score;
+    private int highScore;
 
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
@@ -33,6 +36,8 @@ public class SimpleCharacterController : MonoBehaviour
     public float TurnInput { get; set; }
     public bool JumpInput { get; set; }
 
+    public Text godMode;
+
     public float jumpForce = 4f;
     public float jumpAmount = 2f;
 
@@ -47,7 +52,8 @@ public class SimpleCharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalPos = this.transform.position;
-
+        godMode.text = " ";
+        godModeOn = false;
     }
 
     void Update()
@@ -55,17 +61,41 @@ public class SimpleCharacterController : MonoBehaviour
         CheckGrounded();
         Move();
         Jump();
+        GodMode();
     }
 
     private void FixedUpdate()
     {
         //CheckGrounded();
         Turn();
+        
+    }
+
+    public void GodMode() 
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+            godMode.text = "GOD MODE";
+            Debug.Log("God mode enabled");
+            godModeOn = true;
+
+            player.tag = "Untagged";
+            character.tag = "Untagged";
+        }
+
+        else
+        {
+           godMode.text = "";
+           Debug.Log("God mode disabled");
+           godModeOn = false;
+
+            player.tag = "Player";
+           character.tag = "Player";
+        }
     }
 
     // Checks whether the character is on the ground and updates <see cref="IsGrounded"/>
-    
-    private void CheckGrounded()
+        private void CheckGrounded()
     {
         IsGrounded = false;
         float capsuleHeight = Mathf.Max(capsuleCollider.radius * 2f, capsuleCollider.height);
@@ -115,6 +145,7 @@ public class SimpleCharacterController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
+                GetComponent<AudioSource>().Play();
                 rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
             }
 
@@ -150,7 +181,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (other.tag == "Water")
         {
-            if(onBoat == false) 
+            if(onBoat == false && godModeOn == false)
             {
                 transform.position = originalPos;
             }
@@ -173,7 +204,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (other.tag == "Goal") 
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); ;
         }
 
     }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +17,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject train;
     public Transform[] spawnPoints;
     private Collider collider;
-
+    private string lastTile;
 
     public GameObject vehicle;
 
@@ -31,6 +33,11 @@ public class MapGenerator : MonoBehaviour
     private int orangeTileCount;
     private int purpleTileCount;
 
+    void Awake() 
+    {
+        lastTile = "Blank";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,86 +52,211 @@ public class MapGenerator : MonoBehaviour
             MeshRenderer meshRenderer = gameTiles[i].GetComponent<MeshRenderer>();
             Material oldMaterial = meshRenderer.material;
             Debug.Log("Applied Material: " + oldMaterial.name);
-            int random = Random.Range(0, 7);
+            int random = UnityEngine.Random.Range(0, 7);
             switch (random)
             {
                 case 0:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[0];
-                    gameTiles[i].name = "WhiteTile";
-                    whiteTileCount++;
-                    // Make the misc items
-                    Instantiate(miscleft, gameTiles[i].transform, false);
-                    Instantiate(miscright, gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "White")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[2];
+                        gameTiles[i].name = "BlueTile";
+                        gameTiles[i].tag = "Water";
+                        blueTileCount++;
+                        // Make the boats
+                        collider = gameTiles[i].GetComponent<Collider>();
+                        collider.GetComponent<Collider>().isTrigger = true;
+                        int l = UnityEngine.Random.Range(0, boatsleft.Length);
+                        Instantiate(boatsleft[l], gameTiles[i].transform, false);
+                        lastTile = "Blue";
+                        break;
+                    }
+
+                    else 
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[0];
+                        gameTiles[i].name = "WhiteTile";
+                        whiteTileCount++;
+                        // Make the misc items
+                        Instantiate(miscleft, gameTiles[i].transform, false);
+                        Instantiate(miscright, gameTiles[i].transform, false);
+                        lastTile = "White";
+                        break;
+                    }
 
                 case 1:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[1];
-                    gameTiles[i].name = "GreenTile";
-                    greenTileCount++;
-                    break;
+                    if (lastTile == "Green")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[3];
+                        gameTiles[i].name = "RedTile";
+                        redTileCount++;
+                        // Make the cars
+                        int c = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[c], gameTiles[i].transform, false);
+                        Instantiate(carsright[c], gameTiles[i].transform, false);
+                        lastTile = "Red";
+                        break;
+                    }
+
+                    else 
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[1];
+                        gameTiles[i].name = "GreenTile";
+                        greenTileCount++;
+                        lastTile = "Green";
+                        break;
+                    }
 
                 case 2:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[2];
-                    gameTiles[i].name = "BlueTile";
-                    gameTiles[i].tag = "Water";
-                    blueTileCount++;
-                    // Make the boats
-                    collider = gameTiles[i].GetComponent<Collider>();
-                    collider.GetComponent<Collider>().isTrigger = true;
-                    int l = Random.Range(0, 2);
-                    Instantiate(boatsleft[l], gameTiles[i].transform, false);
-                    int r = Random.Range(0, 1);
-                    Instantiate(boatsright[r], gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "Blue")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[5];
+                        gameTiles[i].name = "OrangeTile";
+                        orangeTileCount++;
+                        // Make the cars
+                        int v = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[v], gameTiles[i].transform, false);
+                        Instantiate(carsright[v], gameTiles[i].transform, false);
+                        lastTile = "Orange";
+                        break;
+                    }
+
+                    else 
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[2];
+                        gameTiles[i].name = "BlueTile";
+                        gameTiles[i].tag = "Water";
+                        blueTileCount++;
+                        // Make the boats
+                        collider = gameTiles[i].GetComponent<Collider>();
+                        collider.GetComponent<Collider>().isTrigger = true;
+                        int l = UnityEngine.Random.Range(0, boatsleft.Length);
+                        Instantiate(boatsleft[l], gameTiles[i].transform, false);
+                        lastTile = "Blue";
+                        break;
+                    }
 
                 case 3:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[3];
-                    gameTiles[i].name = "RedTile";
-                    redTileCount++;
-                    // Make the cars
-                    int c = Random.Range(0, 8);
-                    Instantiate(carsleft[c], gameTiles[i].transform, false);
-                    Instantiate(carsright[c], gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "Red")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[6];
+                        gameTiles[i].name = "PurpleTile";
+                        gameTiles[i].tag = "Water";
+                        purpleTileCount++;
+                        // Make the boats
+                        collider = gameTiles[i].GetComponent<Collider>();
+                        collider.GetComponent<Collider>().isTrigger = true;
+                        int d = UnityEngine.Random.Range(0, boatsright.Length);
+                        Instantiate(boatsright[d], gameTiles[i].transform, false);
+                        lastTile = "Purple";
+                        break;
+                    }
+
+                    else 
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[3];
+                        gameTiles[i].name = "RedTile";
+                        redTileCount++;
+                        // Make the cars
+                        int c = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[c], gameTiles[i].transform, false);
+                        Instantiate(carsright[c], gameTiles[i].transform, false);
+                        lastTile = "Red";
+                        break;
+                    }
 
                 case 4:
-                    // Set the new material on the GameObject
-                    meshRenderer.material = materials[6];
-                    gameTiles[i].name = "PurpleTile";
-                    gameTiles[i].tag = "Water";
-                    purpleTileCount++;
-                    // Make the boats
-                    collider = gameTiles[i].GetComponent<Collider>();
-                    collider.GetComponent<Collider>().isTrigger = true;
-                    int s = Random.Range(0, 2);
-                    Instantiate(boatsleft[s], gameTiles[i].transform, false);
-                    int d = Random.Range(0, 1);
-                    Instantiate(boatsright[d], gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "Purple")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[0];
+                        gameTiles[i].name = "WhiteTile";
+                        whiteTileCount++;
+                        // Make the misc items
+                        Instantiate(miscleft, gameTiles[i].transform, false);
+                        Instantiate(miscright, gameTiles[i].transform, false);
+                        lastTile = "White";
+                        break;
+                    }
+
+                    else
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[6];
+                        gameTiles[i].name = "PurpleTile";
+                        gameTiles[i].tag = "Water";
+                        purpleTileCount++;
+                        // Make the boats
+                        collider = gameTiles[i].GetComponent<Collider>();
+                        collider.GetComponent<Collider>().isTrigger = true;
+                        int d = UnityEngine.Random.Range(0, boatsright.Length);
+                        Instantiate(boatsright[d], gameTiles[i].transform, false);
+                        lastTile = "Purple";
+                        break;
+                    }
 
                 case 5:
-                // Set the new material on the GameObject
-                    meshRenderer.material = materials[5];
-                    gameTiles[i].name = "OrangeTile";
-                    orangeTileCount++;
-                    // Make the cars
-                    int v = Random.Range(0, 8);
-                    Instantiate(carsleft[v], gameTiles[i].transform, false);
-                    Instantiate(carsright[v], gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "Orange")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[3];
+                        gameTiles[i].name = "RedTile";
+                        redTileCount++;
+                        // Make the cars
+                        int c = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[c], gameTiles[i].transform, false);
+                        Instantiate(carsright[c], gameTiles[i].transform, false);
+                        lastTile = "Red";
+                        break;
+                    }
+
+                    else
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[5];
+                        gameTiles[i].name = "OrangeTile";
+                        orangeTileCount++;
+                        // Make the cars
+                        int v = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[v], gameTiles[i].transform, false);
+                        Instantiate(carsright[v], gameTiles[i].transform, false);
+                        lastTile = "Orange";
+                        break;
+                    }
 
                 case 6:
-                    // Set the new material on the GameObject
-                    meshRenderer.material = materials[4];
-                    gameTiles[i].name = "YellowTile";
-                    yellowTileCount++;
-                    // Make the train
-                    Instantiate(train, gameTiles[i].transform, false);
-                    break;
+                    if (lastTile == "Yellow")
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[3];
+                        gameTiles[i].name = "RedTile";
+                        redTileCount++;
+                        // Make the cars
+                        int c = UnityEngine.Random.Range(0, 8);
+                        Instantiate(carsleft[c], gameTiles[i].transform, false);
+                        Instantiate(carsright[c], gameTiles[i].transform, false);
+                        lastTile = "Red";
+                        break;
+                    }
+
+                    else
+                    {
+                        // Set the new material on the GameObject
+                        meshRenderer.material = materials[4];
+                        gameTiles[i].name = "YellowTile";
+                        yellowTileCount++;
+                        // Make the train
+                        Instantiate(train, gameTiles[i].transform, false);
+                        lastTile = "Yellow";
+                        break;
+                    }
 
                 default:
                 // Set the new material on the GameObject
@@ -134,6 +266,7 @@ public class MapGenerator : MonoBehaviour
                     // Make the misc items
                     Instantiate(miscleft, gameTiles[i].transform, false);
                     Instantiate(miscright, gameTiles[i].transform, false);
+                    lastTile = "White";
                     break;
             }
         } 

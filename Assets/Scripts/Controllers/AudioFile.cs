@@ -28,7 +28,6 @@ public class AudioFile
     [HideInInspector]
     public bool isLooping;
 
-    [HideInInspector]
     public bool playOnAwake;
 
 }

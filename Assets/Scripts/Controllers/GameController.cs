@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public int score;
     public int highscore;
+    public GameObject player;
     public GameObject[] gameVehicles;
     public GameObject[] carsleft;
     public GameObject[] carsright;
@@ -29,10 +30,6 @@ public class GameController : MonoBehaviour
         StartCoroutine(DelayedSpawn());
 
         PlacePrizes();
-    }
-
-    void Update() 
-    {
     }
 
     void PlacePrizes() 
@@ -68,15 +65,11 @@ public class GameController : MonoBehaviour
                 // Make more boats
                 int le = Random.Range(0, 2);
                 Instantiate(boatsleft[le], gameTiles[ti].transform, false);
-                int ri = Random.Range(0, 1);
-                Instantiate(boatsright[ri], gameTiles[ti].transform, false);
             }
 
             else if (gameTiles[ti].name == "PurpleTile")
             {
                 // Make more boats
-                int si = Random.Range(0, 2);
-                Instantiate(boatsleft[si], gameTiles[ti].transform, false);
                 int de = Random.Range(0, 1);
                 Instantiate(boatsright[de], gameTiles[ti].transform, false);
             }
