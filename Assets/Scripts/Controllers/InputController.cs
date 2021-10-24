@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

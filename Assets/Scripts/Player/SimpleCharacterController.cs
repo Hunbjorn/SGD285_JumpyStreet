@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +14,7 @@ using UnityEngine.SceneManagement;
 public class SimpleCharacterController : MonoBehaviour
 {
     private AudioSource audioSource;
+    private AudioSource[] allAudioSources;
     public Text scoreText;
     public Text highScoreText;
     public GameObject prize;
@@ -66,12 +74,10 @@ public class SimpleCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //CheckGrounded();
         Turn();
-        
     }
 
-    public void GodMode() 
+    public void GodMode()
     {
         if (Input.GetKey(KeyCode.P))
         {
@@ -85,17 +91,17 @@ public class SimpleCharacterController : MonoBehaviour
 
         else
         {
-           godMode.text = "";
-           Debug.Log("God mode disabled");
-           godModeOn = false;
+            godMode.text = "";
+            Debug.Log("God mode disabled");
+            godModeOn = false;
 
             player.tag = "Player";
-           character.tag = "Player";
+            character.tag = "Player";
         }
     }
 
     // Checks whether the character is on the ground and updates <see cref="IsGrounded"/>
-        private void CheckGrounded()
+    private void CheckGrounded()
     {
         IsGrounded = false;
         float capsuleHeight = Mathf.Max(capsuleCollider.radius * 2f, capsuleCollider.height);
@@ -110,7 +116,7 @@ public class SimpleCharacterController : MonoBehaviour
             if (normalAngle < slopeLimit)
             {
                 float maxDist = radius / Mathf.Cos(Mathf.Deg2Rad * normalAngle) - radius + .016f;
-                if (hit.distance < maxDist) 
+                if (hit.distance < maxDist)
                 {
                     IsGrounded = true;
                 }
@@ -138,7 +144,7 @@ public class SimpleCharacterController : MonoBehaviour
         rb.MovePosition(transform.position + move);
     }
 
-    void Jump() 
+    void Jump()
     {
         // Jump
         if (JumpInput && allowJump && IsGrounded)
@@ -148,20 +154,6 @@ public class SimpleCharacterController : MonoBehaviour
                 GetComponent<AudioSource>().Play();
                 rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
             }
-
-            //velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
-            //velocity += gravity * gravityScale * Time.deltaTime;
-            //if (Input.GetKeyDown(KeyCode.J))
-            //{
-            //    velocity = jumpForce;
-            //}
-
-            //transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
-
-
-            //rigidbody.AddForce(transform.forward * jumpSpeed, ForceMode.VelocityChange);
-            //float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
-            //rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
         }
     }
 
@@ -181,7 +173,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (other.tag == "Water")
         {
-            if(onBoat == false && godModeOn == false)
+            if (onBoat == false && godModeOn == false)
             {
                 transform.position = originalPos;
             }
@@ -193,18 +185,26 @@ public class SimpleCharacterController : MonoBehaviour
             other.GetComponent<AudioSource>().Play();
             score++;
             scoreText.text = score.ToString();
-            if(highScore < score) 
+            if (highScore < score)
             {
                 highScore = score;
             }
             Destroy(other.GetComponent<Collider>());
             Destroy(other.GetComponent<MeshRenderer>());
-
         }
 
-        if (other.tag == "Goal") 
+        if (other.tag == "Goal")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); ;
+            StopAllAudio();
+            int y = SceneManager.GetActiveScene().buildIndex;
+            if (y == 4)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
 
     }
@@ -215,6 +215,15 @@ public class SimpleCharacterController : MonoBehaviour
         if (other.tag == "Boat")
         {
             onBoat = false;
+        }
+    }
+
+    void StopAllAudio()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
         }
     }
 }

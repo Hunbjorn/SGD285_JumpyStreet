@@ -1,4 +1,11 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +19,7 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
 
-	#region VARIABLES
+	#region Variables
 
 #pragma warning disable 0649
 	public static AudioManager instance;
@@ -118,7 +125,7 @@ public class AudioManager : MonoBehaviour
 		ResumeList();
 	}
 
-	#region METHODS
+	#region Methods
 
 	public static void PlaySound(String name)
 	{

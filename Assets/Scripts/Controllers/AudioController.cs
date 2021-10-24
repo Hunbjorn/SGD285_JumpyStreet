@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 class AudioController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ class AudioController : MonoBehaviour
                 _instance = GameObject.FindObjectOfType<AudioController>();
                 if (_instance == null)
                 {
-                    var go = new GameObject("__AUDIO_CONTROLLER__");
+                    var go = new GameObject("AUDIO CONTROLLER");
                     _instance = go.AddComponent<AudioController>();
                 }
             }

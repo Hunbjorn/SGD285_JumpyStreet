@@ -1,13 +1,14 @@
 ﻿//////////////////////////////////////////////////////
-// Assignment/Lab/Project: SGD212-MajorProject3
-//Name: Julian Davis
-//Section: 2020SP.SGD.212.4142
-//Instructor: George Cox
-// Date: 04/01/2020
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
 //////////////////////////////////////////////////////
 using UnityEditor;
 using UnityEngine.Audio;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class AudioFile
@@ -28,6 +29,7 @@ public class AudioFile
     [HideInInspector]
     public bool isLooping;
 
+    [HideInInspector]
     public bool playOnAwake;
 
 }
