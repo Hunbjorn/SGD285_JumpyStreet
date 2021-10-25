@@ -1,24 +1,17 @@
-//////////////////////////////////////////////////////
-// Assignment/Lab/Project: SGD285-JumpyStreet
-// Name: Julian Davis
-// Section: 2021FA.SGD.285
-// Instructor: Aurore Wold
-// Date: 10/25/2021
-//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    private SimpleCharacterController charController;
+    public SimpleCharacterController charController;
 
     void Awake()
     {
         charController = GetComponent<SimpleCharacterController>();
     }
 
-    private void Update()
+    public void Update()
     {
         // Get input values
         int vertical = Mathf.RoundToInt(Input.GetAxis("Vertical"));

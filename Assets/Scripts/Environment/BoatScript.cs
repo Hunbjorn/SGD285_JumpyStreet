@@ -57,7 +57,7 @@ public class BoatScript : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "RightWall")
         {
-            print("Boat hit right wall");
+            //print("Boat hit right wall");
             this.transform.position = originalPos;
         }
 

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SimpleCharacterController : MonoBehaviour
 {
@@ -17,13 +18,16 @@ public class SimpleCharacterController : MonoBehaviour
     private AudioSource[] allAudioSources;
     public Text scoreText;
     public Text highScoreText;
+
     public GameObject prize;
     public MeshRenderer coin;
     public GameObject player;
     public GameObject character;
     private bool godModeOn;
+    private bool gameOver;
     public static int score;
-    private int highScore;
+    public static int highScore;
+    private int lives;
 
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
@@ -45,6 +49,7 @@ public class SimpleCharacterController : MonoBehaviour
     public bool JumpInput { get; set; }
 
     public Text godMode;
+    public Text info;
 
     public float jumpForce = 4f;
     public float jumpAmount = 2f;
@@ -62,6 +67,9 @@ public class SimpleCharacterController : MonoBehaviour
         originalPos = this.transform.position;
         godMode.text = " ";
         godModeOn = false;
+        gameOver = false;
+        lives = 5;
+        info.text = "Lives: " + lives;
     }
 
     void Update()
@@ -82,7 +90,7 @@ public class SimpleCharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.P))
         {
             godMode.text = "GOD MODE";
-            Debug.Log("God mode enabled");
+            //Debug.Log("God mode enabled");
             godModeOn = true;
 
             player.tag = "Untagged";
@@ -92,7 +100,7 @@ public class SimpleCharacterController : MonoBehaviour
         else
         {
             godMode.text = "";
-            Debug.Log("God mode disabled");
+            //Debug.Log("God mode disabled");
             godModeOn = false;
 
             player.tag = "Player";
@@ -149,6 +157,9 @@ public class SimpleCharacterController : MonoBehaviour
         // Jump
         if (JumpInput && allowJump && IsGrounded)
         {
+            GetComponent<AudioSource>().Play();
+            rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 GetComponent<AudioSource>().Play();
@@ -171,14 +182,29 @@ public class SimpleCharacterController : MonoBehaviour
             onBoat = true;
         }
 
+        if(other.tag == "Vehicle") 
+        {
+            other.GetComponent<AudioSource>().Play();
+            if (lives > 0)
+            {
+                lives--;
+                transform.position = originalPos;
+            }
+            else
+            {
+                gameOver = true;
+                info.text = "GAME OVER: YOU LOST";
+                StartCoroutine(DelayedEnd());
+            }
+        }
+
         if (other.tag == "Water")
         {
             if (onBoat == false && godModeOn == false)
             {
-                transform.position = originalPos;
+                CheckLives();
             }
         }
-
 
         if (other.tag == "Prize")
         {
@@ -195,18 +221,32 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (other.tag == "Goal")
         {
-            StopAllAudio();
-            int y = SceneManager.GetActiveScene().buildIndex;
-            if (y == 4)
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-            else
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
+            info.text = "YAY! YOU REACHED THE EXIT!";
+            StartCoroutine(DelayedEnd());
         }
 
+    }
+
+    public void CheckLives()
+    {
+        if (lives > 0)
+        {
+            lives--;
+            transform.position = originalPos;
+            info.text = "Lives: " + lives;
+        }
+        else if (lives <= 0)
+        {
+            gameOver = true;
+            info.text = "GAME OVER: YOU LOST";
+            StartCoroutine(DelayedEnd());
+        }
+        else 
+        {
+            print("lives counter error");
+            StartCoroutine(DelayedEnd());
+        }
+    
     }
 
     private void OnTriggerExit(Collider other)
@@ -223,7 +263,22 @@ public class SimpleCharacterController : MonoBehaviour
         allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
         foreach (AudioSource audioS in allAudioSources)
         {
-            audioS.Stop();
+            audioS.enabled = false;
+        }
+    }
+
+    IEnumerator DelayedEnd()
+    {
+        StopAllAudio();
+        yield return new WaitForSeconds(5.0f);
+        int y = SceneManager.GetActiveScene().buildIndex;
+        if (y == 4 || gameOver == true)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

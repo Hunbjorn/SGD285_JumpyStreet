@@ -13,47 +13,26 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public int score;
-    public int highscore;
     public GameObject player;
     public GameObject[] gameVehicles;
     public GameObject[] carsleft;
     public GameObject[] carsright;
     public GameObject[] boatsleft;
     public GameObject[] boatsright;
-    public GameObject prize;
-    public int numberOfPrizes;
-    public float min, max;
     public GameObject miscleft;
     public GameObject miscright;
     public GameObject train;
 
-    public float yOffset = 0.5f;
+    public GameObject prize;
+    public int numberOfPrizes;
+    public float min, max;
+    private List<GameObject> prizes;
 
     public GameObject[] gameTiles;
 
     void Start()
     {
         StartCoroutine(DelayedSpawn());
-
-        PlacePrizes();
-    }
-
-    void PlacePrizes() 
-    {
-        for (int i = 0; i < numberOfPrizes; i++)
-        {
-            Instantiate(prize, GeneratePosition(), Quaternion.identity);
-        }
-
-        Vector3 GeneratePosition()
-        {
-            float x, y, z;
-            x = UnityEngine.Random.Range(-4f, 4f);
-            y = -5.46f;
-            z = UnityEngine.Random.Range(-6f, 6f);
-            return new Vector3(x,y,z);
-        }
     }
 
     public void VehicleControl()
@@ -110,14 +89,41 @@ public class GameController : MonoBehaviour
 
     }
 
+    void PlacePrizes()
+    {
+        prizes = new List<GameObject>();
+        for (int i = 0; i < numberOfPrizes; i++)
+        {
+            Instantiate(prize, GeneratePosition(), Quaternion.identity);
+            prizes.Add(prize);
+        }
+
+        Vector3 GeneratePosition()
+        {
+            float x, y, z;
+            x = UnityEngine.Random.Range(-4f, 4f);
+            y = -5.47f;
+            z = UnityEngine.Random.Range(min, max);
+            return new Vector3(x, y, z);
+        }
+    }
+
     IEnumerator DelayedSpawn()
     {
         //Print the time of when the function is first called.
         Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
+        yield return new WaitForSeconds(3.0f);
         VehicleControl();
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(10.0f);
+        Debug.Log("Step 1 : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 3 seconds.
+        yield return new WaitForSeconds(3.0f);
+        PlacePrizes();
+        Debug.Log("Step 2 : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 3 seconds.
+        yield return new WaitForSeconds(5.0f);
         VehicleControl();
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);

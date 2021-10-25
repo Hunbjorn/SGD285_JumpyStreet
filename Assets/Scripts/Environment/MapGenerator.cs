@@ -25,12 +25,6 @@ public class MapGenerator : MonoBehaviour
     private Collider collider;
     private string lastTile;
 
-    public GameObject vehicle;
-
-    //    public Transform prefab;
-    //    public Vector3 spawnPoint;
-    //    public int columns;
-    //    public int rows;
     private int whiteTileCount;
     private int greenTileCount;
     private int redTileCount;
@@ -275,7 +269,7 @@ public class MapGenerator : MonoBehaviour
                     lastTile = "White";
                     break;
             }
-        } 
+        }
 
         Debug.Log("white gameTiles = " + whiteTileCount);
         Debug.Log("red gameTiles = " + redTileCount);
@@ -286,5 +280,4 @@ public class MapGenerator : MonoBehaviour
         Debug.Log("purple gameTiles = " + purpleTileCount);
 
     }
-
 }
