@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c84bc65771f5924783c764bc27b1d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5417302878242153746}
   gameVehicles:
   - {fileID: 1910432235585418, guid: c2b0699f327232848b46acc7f136bce5, type: 3}
   - {fileID: 2144056381501953265, guid: f980c73fa44ac5c418914faee47fe855, type: 3}
