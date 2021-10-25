@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +35,7 @@ public class Vehicle : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "RightWall")
         {
-            print("Hit right wall");
+            //print("Hit right wall");
             this.transform.position = originalPos;
         }
 
@@ -49,7 +56,7 @@ public class Vehicle : MonoBehaviour
         // Otherwise, it's hit the player, which kills the player
         else if (other.tag == "Player")
         {
-            print("Vehicle hit player");
+            //print("Vehicle hit player");
             other.transform.position = new Vector3(0f, -5.469f, -7.237f);
         }
 

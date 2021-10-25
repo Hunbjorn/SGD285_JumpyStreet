@@ -1,18 +1,34 @@
+//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SimpleCharacterController : MonoBehaviour
 {
     private AudioSource audioSource;
-    private int score;
-    private int highScore;
+    private AudioSource[] allAudioSources;
+    private Transform[] allChildren;
     public Text scoreText;
     public Text highScoreText;
+
     public GameObject prize;
     public MeshRenderer coin;
+    public GameObject player;
+    public GameObject character;
+    private bool godModeOn;
+    private bool gameOver;
+    public static int score;
+    public static int highScore;
+    private int lives;
 
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
@@ -33,6 +49,9 @@ public class SimpleCharacterController : MonoBehaviour
     public float TurnInput { get; set; }
     public bool JumpInput { get; set; }
 
+    public Text godMode;
+    public Text info;
+
     public float jumpForce = 4f;
     public float jumpAmount = 2f;
 
@@ -44,10 +63,15 @@ public class SimpleCharacterController : MonoBehaviour
 
     private void Start()
     {
+        StartAllAudio();
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalPos = this.transform.position;
-
+        godMode.text = " ";
+        godModeOn = false;
+        gameOver = false;
+        lives = 5;
+        info.text = "Lives: " + lives;
     }
 
     void Update()
@@ -55,16 +79,38 @@ public class SimpleCharacterController : MonoBehaviour
         CheckGrounded();
         Move();
         Jump();
+        GodMode();
     }
 
     private void FixedUpdate()
     {
-        //CheckGrounded();
         Turn();
     }
 
+    public void GodMode()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+            godMode.text = "GOD MODE";
+            //Debug.Log("God mode enabled");
+            godModeOn = true;
+
+            player.tag = "Untagged";
+            character.tag = "Untagged";
+        }
+
+        else
+        {
+            godMode.text = "";
+            //Debug.Log("God mode disabled");
+            godModeOn = false;
+
+            player.tag = "Player";
+            character.tag = "Player";
+        }
+    }
+
     // Checks whether the character is on the ground and updates <see cref="IsGrounded"/>
-    
     private void CheckGrounded()
     {
         IsGrounded = false;
@@ -80,7 +126,7 @@ public class SimpleCharacterController : MonoBehaviour
             if (normalAngle < slopeLimit)
             {
                 float maxDist = radius / Mathf.Cos(Mathf.Deg2Rad * normalAngle) - radius + .016f;
-                if (hit.distance < maxDist) 
+                if (hit.distance < maxDist)
                 {
                     IsGrounded = true;
                 }
@@ -108,29 +154,19 @@ public class SimpleCharacterController : MonoBehaviour
         rb.MovePosition(transform.position + move);
     }
 
-    void Jump() 
+    void Jump()
     {
         // Jump
         if (JumpInput && allowJump && IsGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            GetComponent<AudioSource>().Play();
+            rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                GetComponent<AudioSource>().Play();
                 rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
             }
-
-            //velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
-            //velocity += gravity * gravityScale * Time.deltaTime;
-            //if (Input.GetKeyDown(KeyCode.J))
-            //{
-            //    velocity = jumpForce;
-            //}
-
-            //transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
-
-
-            //rigidbody.AddForce(transform.forward * jumpSpeed, ForceMode.VelocityChange);
-            //float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
-            //rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
         }
     }
 
@@ -148,34 +184,77 @@ public class SimpleCharacterController : MonoBehaviour
             onBoat = true;
         }
 
-        if (other.tag == "Water")
+        if(other.tag == "Vehicle") 
         {
-            if(onBoat == false) 
+            other.GetComponent<AudioSource>().Play();
+            if (lives > 0)
             {
+                lives--;
                 transform.position = originalPos;
+            }
+            else
+            {
+                gameOver = true;
+                info.text = "GAME OVER: YOU LOST";
+                StartCoroutine(DelayedEnd());
             }
         }
 
+        if (other.tag == "Water")
+        {
+            if (onBoat == false && godModeOn == false)
+            {
+                CheckLives();
+            }
+        }
 
         if (other.tag == "Prize")
         {
             other.GetComponent<AudioSource>().Play();
             score++;
             scoreText.text = score.ToString();
-            if(highScore < score) 
+            if (highScore < score)
             {
                 highScore = score;
+                highScoreText.text = highScore.ToString();
+            }
+            allChildren = other.GetComponentsInChildren<Transform>();
+            foreach (Transform child in allChildren)
+            {
+                child.gameObject.SetActive(false);
             }
             Destroy(other.GetComponent<Collider>());
             Destroy(other.GetComponent<MeshRenderer>());
-
         }
 
-        if (other.tag == "Goal") 
+        if (other.tag == "Goal")
         {
-            SceneManager.LoadScene("MainMenu");
+            info.text = "YAY! YOU REACHED THE EXIT!";
+            StartCoroutine(DelayedEnd());
         }
 
+    }
+
+    public void CheckLives()
+    {
+        if (lives > 0)
+        {
+            lives--;
+            transform.position = originalPos;
+            info.text = "Lives: " + lives;
+        }
+        else if (lives <= 0)
+        {
+            gameOver = true;
+            info.text = "GAME OVER: YOU LOST";
+            StartCoroutine(DelayedEnd());
+        }
+        else 
+        {
+            print("lives counter error");
+            StartCoroutine(DelayedEnd());
+        }
+    
     }
 
     private void OnTriggerExit(Collider other)
@@ -184,6 +263,40 @@ public class SimpleCharacterController : MonoBehaviour
         if (other.tag == "Boat")
         {
             onBoat = false;
+        }
+    }
+
+    void StopAllAudio()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.enabled = false;
+        }
+    }
+
+
+    void StartAllAudio()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.enabled = true;
+        }
+    }
+
+    IEnumerator DelayedEnd()
+    {
+        StopAllAudio();
+        yield return new WaitForSeconds(5.0f);
+        int y = SceneManager.GetActiveScene().buildIndex;
+        if (y == 4 || gameOver == true)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

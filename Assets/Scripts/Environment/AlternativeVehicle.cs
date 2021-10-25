@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AlternativeVehicle : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class AlternativeVehicle : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "LeftWall")
         {
-            print("Hit left wall");
+            //print("Hit left wall");
             transform.position = originalPos;
         }
 

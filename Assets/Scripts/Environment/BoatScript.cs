@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,7 +57,7 @@ public class BoatScript : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "RightWall")
         {
-            print("Boat hit right wall");
+            //print("Boat hit right wall");
             this.transform.position = originalPos;
         }
 

@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////
+// Assignment/Lab/Project: SGD285-JumpyStreet
+// Name: Julian Davis
+// Section: 2021FA.SGD.285
+// Instructor: Aurore Wold
+// Date: 10/25/2021
+//////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,14 +33,14 @@ public class AlternativeBoatScript : MonoBehaviour
 
     void Start()
     {
-       originalPos = this.transform.position;
-       gameObject.SetActive(true);
+        originalPos = this.transform.position;
+        gameObject.SetActive(true);
     }
 
     //Moves this GameObject 2 units a second in the forward direction
     void Update()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * speed);
+        transform.Translate(Vector3.left * Time.deltaTime * speed);
     }
 
     private void FixedUpdate()
@@ -50,8 +57,8 @@ public class AlternativeBoatScript : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (other.tag == "LeftWall")
         {
-            print("Boat hit left wall");
-            transform.position = originalPos;
+            //print("Boat hit left wall");
+            this.transform.position = originalPos;
         }
 
         if (other.tag == "Player")
