@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public Button startButton;
     public Button helpButton;
     public Button backButton;
+    public Button tutorialButton;
     public Button quitButton;
 
     [Header("Audio")]
@@ -68,6 +69,12 @@ public class UIManager : MonoBehaviour
     {
         helpPanel.SetActive(false);
     }
+
+    public void OnTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
 
     public void OnQuit()
     {
