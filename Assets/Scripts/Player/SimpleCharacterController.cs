@@ -30,6 +30,9 @@ public class SimpleCharacterController : MonoBehaviour
     public static int highScore;
     private int lives;
 
+    // --
+    public GameObject gameOverPanel;
+
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
     public float slopeLimit = 45f;
@@ -72,6 +75,9 @@ public class SimpleCharacterController : MonoBehaviour
         gameOver = false;
         lives = 5;
         info.text = "Lives: " + lives;
+
+        //--
+        gameOverPanel.SetActive(false);
     }
 
     void Update()
@@ -195,8 +201,12 @@ public class SimpleCharacterController : MonoBehaviour
             else
             {
                 gameOver = true;
-                info.text = "GAME OVER: YOU LOST";
+                //info.text = "GAME OVER: YOU LOST";
+                info.text = "";
                 StartCoroutine(DelayedEnd());
+
+                //--
+                gameOverPanel.SetActive(true);
             }
         }
 
@@ -246,8 +256,12 @@ public class SimpleCharacterController : MonoBehaviour
         else if (lives <= 0)
         {
             gameOver = true;
-            info.text = "GAME OVER: YOU LOST";
+            //info.text = "GAME OVER: YOU LOST";
+            info.text = "";
             StartCoroutine(DelayedEnd());
+
+            //--
+            gameOverPanel.SetActive(true);
         }
         else 
         {
