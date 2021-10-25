@@ -16,6 +16,7 @@ public class SimpleCharacterController : MonoBehaviour
 {
     private AudioSource audioSource;
     private AudioSource[] allAudioSources;
+    private Transform[] allChildren;
     public Text scoreText;
     public Text highScoreText;
 
@@ -62,6 +63,7 @@ public class SimpleCharacterController : MonoBehaviour
 
     private void Start()
     {
+        StartAllAudio();
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalPos = this.transform.position;
@@ -214,6 +216,12 @@ public class SimpleCharacterController : MonoBehaviour
             if (highScore < score)
             {
                 highScore = score;
+                highScoreText.text = highScore.ToString();
+            }
+            allChildren = other.GetComponentsInChildren<Transform>();
+            foreach (Transform child in allChildren)
+            {
+                child.gameObject.SetActive(false);
             }
             Destroy(other.GetComponent<Collider>());
             Destroy(other.GetComponent<MeshRenderer>());
@@ -264,6 +272,16 @@ public class SimpleCharacterController : MonoBehaviour
         foreach (AudioSource audioS in allAudioSources)
         {
             audioS.enabled = false;
+        }
+    }
+
+
+    void StartAllAudio()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.enabled = true;
         }
     }
 
