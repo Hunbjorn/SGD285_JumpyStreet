@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -6061278397155335687}
-  player: {fileID: 0}
+  player: {fileID: 5992241990101480306, guid: 38fb7ab5cbc8d9647a975ac4a958c1d3, type: 3}
   character: {fileID: 5417302878338202196, guid: 4dd3230dc38e4fd4bb073cb1b9c42a96,
     type: 3}
   oldParent: {fileID: 5417302878338202197, guid: 4dd3230dc38e4fd4bb073cb1b9c42a96,
