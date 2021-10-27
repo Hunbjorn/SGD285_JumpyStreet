@@ -89,33 +89,32 @@ public class AudioManager : MonoBehaviour
             gameObject.GetComponent<AudioSource>().mute = true;
         }
 
-		if (GUI.Button(new Rect(120, 1000, 50, 50), nextTexture))
-		{
-			NextTitle();
-			Debug.Log(currentClip);
-		}
-
-		if (GUI.Button(new Rect(170, 1000, 50, 50), lastTexture))
-		{
-			LastTitle();
-			Debug.Log(currentClip);
-		}
-
-        if (GUI.Button(new Rect(220, 1000, 50, 50), volUpTexture))
+        if (GUI.Button(new Rect(120, 1000, 50, 50), volUpTexture))
 		{
 			RaiseVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(275, 1000, 50, 50), volDnTexture))
+		if (GUI.Button(new Rect(175, 1000, 50, 50), volDnTexture))
 		{
 			LowerVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(330, 1000, 50, 50), exitTexture))
+		if (GUI.Button(new Rect(230, 1000, 50, 50), exitTexture))
 		{
 			Application.Quit();
 		}
 
+//		if (GUI.Button(new Rect(120, 1000, 50, 50), nextTexture))
+//		{
+//			NextTitle();
+//			Debug.Log(currentClip);
+//		}
+
+//		if (GUI.Button(new Rect(170, 1000, 50, 50), lastTexture))
+//		{
+//			LastTitle();
+//			Debug.Log(currentClip);
+//		}
 	}
 
 	void Start()
