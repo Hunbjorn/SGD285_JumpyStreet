@@ -3247,57 +3247,8 @@ MonoBehaviour:
     output: []
     isLooping: 0
     playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: f20839db2906aff49ba7dc05f152a29e, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: c611f9f4d89702c4a9ce5a23d2d217c3, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: 4a8c562116fc3934f90e4207803d932e, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: 33f5d3193acc96940b49d267aac42e12, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: 537fd8a30dbed29419e1abb8c3e899e7, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: Track
-    audioClip: {fileID: 8300000, guid: 0f14f6aa55ad8c841beac1a41a27be9a, type: 3}
-    volume: 0
-    source: {fileID: 0}
-    output: []
-    isLooping: 0
-    playOnAwake: 0
   musicList:
   - {fileID: 8300000, guid: 7c5025dd05493354395732a62b920e88, type: 3}
-  - {fileID: 8300000, guid: f20839db2906aff49ba7dc05f152a29e, type: 3}
-  - {fileID: 8300000, guid: c611f9f4d89702c4a9ce5a23d2d217c3, type: 3}
-  - {fileID: 8300000, guid: 4a8c562116fc3934f90e4207803d932e, type: 3}
-  - {fileID: 8300000, guid: 33f5d3193acc96940b49d267aac42e12, type: 3}
-  - {fileID: 8300000, guid: 537fd8a30dbed29419e1abb8c3e899e7, type: 3}
-  - {fileID: 8300000, guid: 0f14f6aa55ad8c841beac1a41a27be9a, type: 3}
-  - {fileID: 8300000, guid: dcfffa66539780c49895631b7d10d691, type: 3}
   output: []
   playTexture: {fileID: 2800000, guid: 48261d2a512ddbb4981057f58e7a4b07, type: 3}
   muteTexture: {fileID: 2800000, guid: b7c0b8099efc6a14e860f2cf469563f8, type: 3}
@@ -3317,7 +3268,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
