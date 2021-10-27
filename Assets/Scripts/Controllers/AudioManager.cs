@@ -78,40 +78,40 @@ public class AudioManager : MonoBehaviour
 	//OnGUI controls for players
 	void OnGUI()
 	{
-		if (GUI.Button(new Rect(20, 50, 50, 50), playTexture))
+		if (GUI.Button(new Rect(20, 1000, 50, 50), playTexture))
 		{
 			PlayList();
             gameObject.GetComponent<AudioSource>().mute = false;
         }
 
-        if(GUI.Button(new Rect(70, 50, 50, 50), muteTexture))
+        if(GUI.Button(new Rect(65, 1000, 50, 50), muteTexture))
         {
             gameObject.GetComponent<AudioSource>().mute = true;
         }
 
-		if (GUI.Button(new Rect(125, 50, 50, 50), nextTexture))
+		if (GUI.Button(new Rect(120, 1000, 50, 50), nextTexture))
 		{
 			NextTitle();
 			Debug.Log(currentClip);
 		}
 
-		if (GUI.Button(new Rect(175, 50, 50, 50), lastTexture))
+		if (GUI.Button(new Rect(170, 1000, 50, 50), lastTexture))
 		{
 			LastTitle();
 			Debug.Log(currentClip);
 		}
 
-        if (GUI.Button(new Rect(225, 50, 50, 50), volUpTexture))
+        if (GUI.Button(new Rect(220, 1000, 50, 50), volUpTexture))
 		{
 			RaiseVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(275, 50, 50, 50), volDnTexture))
+		if (GUI.Button(new Rect(275, 1000, 50, 50), volDnTexture))
 		{
 			LowerVolume("Track");
 		}
 
-		if (GUI.Button(new Rect(330, 50, 50, 50), exitTexture))
+		if (GUI.Button(new Rect(330, 1000, 50, 50), exitTexture))
 		{
 			Application.Quit();
 		}
@@ -320,15 +320,6 @@ public class AudioManager : MonoBehaviour
 		StartCoroutine(WaitForMusicEnd());
 	}
 
-	IEnumerator WaitForMusicEnd()
-	{
-		while (source.isPlaying)
-		{
-			yield return null;
-		}
-		NextTitle();
-	}
-
 	void ResetVol()
 	{
 		AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == tmpName);
@@ -342,6 +333,15 @@ public class AudioManager : MonoBehaviour
 			ResetVol();
 			timerIsSet = false;
 		}
+	}
+
+	IEnumerator WaitForMusicEnd()
+	{
+		while (source.isPlaying)
+		{
+			yield return null;
+		}
+		NextTitle();
 	}
 
 	#endregion
