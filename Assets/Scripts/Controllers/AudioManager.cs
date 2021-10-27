@@ -28,8 +28,8 @@ public class AudioManager : MonoBehaviour
 	public AudioMixerGroup[] output;
 	public Texture playTexture;
 	public Texture muteTexture;
-	public Texture nextTexture;
-	public Texture lastTexture;
+//	public Texture nextTexture;
+//	public Texture lastTexture;
 	public Texture volUpTexture;
 	public Texture volDnTexture;
 	public Texture exitTexture;
