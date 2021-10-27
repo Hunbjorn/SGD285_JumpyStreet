@@ -4787,6 +4787,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: c17698f595aa942cab4326f0ffaf25c2, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: c17698f595aa942cab4326f0ffaf25c2, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: c17698f595aa942cab4326f0ffaf25c2, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c17698f595aa942cab4326f0ffaf25c2, type: 3}
 --- !u!4 &1355837292 stripped
@@ -5025,7 +5037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458987862}
   m_LocalRotation: {x: -0, y: -0.9888245, z: -0, w: 0.1490843}
-  m_LocalPosition: {x: -0.762, y: -5.56, z: 10.815}
+  m_LocalPosition: {x: -0.85, y: -5.2, z: 10.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1355837292}
