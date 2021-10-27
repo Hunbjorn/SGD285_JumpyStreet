@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
+    public GameObject controlsPanel;
+
+    bool state;
+
     public Button resumeButton;
     public Button mainMenuButton;
     public Button quitButton;
@@ -37,6 +41,12 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+    }
+
+    public void Controls()
+    {
+        state = !state;
+        controlsPanel.gameObject.SetActive(state);
     }
 
     public void Quit()

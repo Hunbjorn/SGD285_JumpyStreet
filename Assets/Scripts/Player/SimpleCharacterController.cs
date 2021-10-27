@@ -32,6 +32,7 @@ public class SimpleCharacterController : MonoBehaviour
 
     // --
     public GameObject gameOverPanel;
+    public GameObject completedPanel;
 
     [Tooltip("Maximum slope the character can jump on")]
     [Range(5f, 60f)]
@@ -78,6 +79,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         //--
         gameOverPanel.SetActive(false);
+        completedPanel.SetActive(false);
     }
 
     void Update()
@@ -239,8 +241,13 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (other.tag == "Goal")
         {
-            info.text = "YAY! YOU REACHED THE EXIT!";
+            completedPanel.SetActive(true);
+            //info.text = "YAY! YOU REACHED THE EXIT!";
+            info.text = "";
             StartCoroutine(DelayedEnd());
+
+            //--
+            completedPanel.SetActive(true);
         }
 
     }
