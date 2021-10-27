@@ -66,7 +66,7 @@ public class SimpleCharacterController : MonoBehaviour
 
     private void Start()
     {
-        StartAllAudio();
+        //StartAllAudio();
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalPos = this.transform.position;
